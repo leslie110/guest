@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth
+from sign.models import Event
 
 # Create your views here.
 #登录首页
@@ -33,7 +34,8 @@ def login_action(request):
         if user is not None:
             auth.login(request,user)
             request.session['user'] = username #将session信息记录到浏览器
-            response =  HttpResponseRedirect(r'event_manage/')
+
+            response =  HttpResponseRedirect(r'/event_manage/')
             return response
         else:
             return render(request,"login.html",{'error':"用户名或者密码不正确！！"})
@@ -42,5 +44,15 @@ def login_action(request):
 @login_required
 def event_manage(request):
     #username = request.COOKIES.get('user','')#读取浏览器cookie
+    event_list = Event.objects.all()
     username = request.session.get('user','')
-    return render(request,'event_manage.html',{'user':username})
+    return render(request,'event_manage.html',{'user':username,
+                                               "events":event_list})
+
+@login_required()
+def search_name(requeest):
+    username = requeest.session.get('user','')
+    search_name = requeest.GET.get('name','')
+    event_list = Event.objects.filter(name__contains=search_name)
+    return render(requeest,"event_manage.html",{"user":username,
+                                                "events":event_list})
