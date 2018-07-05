@@ -1,3 +1,4 @@
+# conding=utf-8
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
@@ -40,7 +41,8 @@ def login_action(request):
             response =  HttpResponseRedirect(r'/event_manage/')
             return response
         else:
-            return render(request,"login.html",{'error':"用户名或者密码不正确！！"})
+            return render(request,"login.html",{'error':u"username or password error"})
+
 
 #发布会管理
 @login_required
