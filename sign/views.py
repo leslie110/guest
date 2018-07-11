@@ -37,9 +37,10 @@ def login_action(request):
         if user is not None:
             auth.login(request,user)
             request.session['user'] = username #将session信息记录到浏览器
-
-            response =  HttpResponseRedirect(r'/event_manage/')
+            response = HttpResponseRedirect(r'/event_manage/')
             return response
+        elif user is None:
+            return render(request, "login.html", {'error': u"username or password null"})
         else:
             return render(request,"login.html",{'error':u"username or password error"})
 
