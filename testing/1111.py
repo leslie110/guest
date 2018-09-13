@@ -1,18 +1,81 @@
-# -*- coding:utf-8 -*-
-import requests
-import urllib3.contrib.pyopenssl
+from django.contrib import auth as django_auth
+from django.http import JsonResponse
+import base64,time,hashlib
 
-urllib3.contrib.pyopenssl.inject_into_urllib3()
 
-url = "http://epay.ardy0220.top/auth/verify"
-data = {"sign":"25c83ec4b6cd2ed0b16e51d82bc0469daeeb48dc658f4341af269ff804dbb05d66c94072ee988d85092d46e1c00d86e3240b19f61ef7b3b268530b80d89330609f267efa6e8ba36b1f2b76684484fcd50ff2d14ed6bfe1d94f685363ecb041b6657f04c6a55283f15ab783b1e0ec1b87e2402b396ca931640457e7a245638528affbc0bc6db4fc50c7c1f8a73eeffb7472b655334042887ceded14cc33fabc68a0ef7e3c01a31f8ee92c6cd42d45b99254d3b77a851290845f29d1f48934bee3dde573c9bedf4f82001720585ec337c0f5ab3f06b1fd7eda28b5435e9045e4a30f97154d8cc68bfc9bb3ef4555e04826b2b96bd6b2f01f625c893187617fea54",
-        "data":"2ccdfffce213399a7ed7f828acfb7c55524e87fdae94285075bd113f3582006cb6527d27be00e4197c48ddc80dbcd20d"}
+# 用户认证
+def user_auth(request):
+    get_http_auth = request.META.get('HTTP_AUTHORIZATION','b')
+    auth = get_http_auth.split()
+    try:
+        auth_parts = base64.b64decode(auth[1].decode('utf-8').partition(':'))
+    except IndexError:
+        return  "null"
+    username,password = auth_parts[0],auth_parts[2]
+    user = django_auth.authenticate(username=username,password=password)
+    if user is not None:
+        django_auth.login(request,user)
+        return "success"
+    else:
+        return "fail"
 
-r = requests.post(url,data=data,verify=False)
-print (r.status_code)
-print (r.text)
-print (r.json()['msg'])
-try:
-        assert r.json()['msg']=="登录成功"
-except AssertionError:
-        print ("登录失败")
+# 查询发布会接口---增加 用户认证
+def get_event_list(request):
+    auth_result = user_auth(request)   #调用认证函数
+    if auth_result == 'null':
+        return JsonResponse({'status':10011,'message':'user auth null'})
+
+    if auth_result == 'fail':
+        return JsonResponse({'status':10012,'message':'user auth fail'})
+
+    eid = request.GET.get("eid",'')   # 发布会id
+    name = request.GET.get("name",'')  # 发布会名称
+
+
+# 用户名+时间戳
+def user_sign(request):
+    if request.method == 'POST':
+        client_time = request.POST.get('time','')     #客户端时间戳
+        client_sign = request.POST.get('sign','')     #客户端签名
+
+    else:
+        return 'error'
+
+    if client_time == '' or client_sign == '':
+        return "sign null"
+
+    # 服务器时间
+    now_time = time.time()       #例 1466545431
+    server_time = str(now_time).split('.')[0]
+    # 获取时间差
+    time_difference = int(server_time) - int(client_time)
+    if time_difference >= 60:
+        return "timeout"
+
+    # 检查签名
+    md5 = hashlib.md5()
+    sign_str = client_time + "&Guest_Bugmaster"
+    sign_bytes_utf8 = sign_str.encode(encoding='utf-8')
+    md5.update(sign_bytes_utf8)
+    server_sign = md5.hexdigest()
+
+    if server_sign != client_sign:
+        return "sign fail"
+    else:
+        return 'sign success'
+
+
+# 添加发布会接口----增加签名+时间戳
+def add_event(request):
+    sign_result = user_sign(request)
+    if sign_result == 'error':
+        return JsonResponse({'status':10011,'message':'request error'})
+    elif sign_result == 'sign null':
+        return JsonResponse({'status':10012,'message':'user sign null'})
+    elif sign_result == 'timeout':
+        return JsonResponse({'status':10013,'message':'user sign timeout'})
+    elif sign_result == 'sign fail':
+        return JsonResponse({'status':10014,'message':'user sign fail'})
+    else:
+        return JsonResponse({'status':200,'message':'success'})
+
