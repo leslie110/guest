@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a34a7667-cddb-4826-8f2c-691a176fe45b" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/sign/views_if_sec.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/testing/sec_test_case.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sign/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/sign/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testing/1111.py" beforeDir="false" afterPath="$PROJECT_DIR$/testing/1111.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -30,8 +26,8 @@
       <file leaf-file-name="views_if_sec.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/sign/views_if_sec.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="214">
-              <caret line="148" lean-forward="true" selection-start-line="148" selection-end-line="148" />
+            <state relative-caret-position="268">
+              <caret line="151" lean-forward="true" selection-start-line="151" selection-end-line="151" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
               </folding>
@@ -332,7 +328,14 @@
       <option name="project" value="LOCAL" />
       <updated>1531296910341</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="九月13">
+      <created>1536831292387</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1536831292387</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -348,10 +351,10 @@
       <window_info anchor="bottom" id="Event Log" order="13" sideWeight="0.5036675" side_tool="true" weight="0.43333334" />
       <window_info anchor="bottom" id="Database Changes" order="11" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49633253" weight="0.32413793" />
-      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.4951574" weight="0.34252873" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="7" sideWeight="0.4951574" visible="true" weight="0.34252873" />
       <window_info anchor="bottom" id="Python Console" order="8" sideWeight="0.4951574" weight="0.32873562" />
       <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.4951574" weight="0.7034483" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.10941321" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1106357" />
       <window_info anchor="bottom" id="Docker" order="10" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="4" />
       <window_info anchor="right" id="SciView" order="3" />
@@ -404,7 +407,8 @@
     <MESSAGE value="last" />
     <MESSAGE value="last1" />
     <MESSAGE value="7月11" />
-    <option name="LAST_COMMIT_MESSAGE" value="7月11" />
+    <MESSAGE value="九月13" />
+    <option name="LAST_COMMIT_MESSAGE" value="九月13" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -704,8 +708,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sign/views_if_sec.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="148" lean-forward="true" selection-start-line="148" selection-end-line="148" />
+        <state relative-caret-position="268">
+          <caret line="151" lean-forward="true" selection-start-line="151" selection-end-line="151" />
           <folding>
             <element signature="e#0#36#0" expanded="true" />
           </folding>
